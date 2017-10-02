@@ -25,9 +25,16 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
+// RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
+// {
+//     [self isHealthKitAvailable:callback];
+// }
+
+RCT_REMAP_METHOD(isAvailable,
+                 isAvailableWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [self isHealthKitAvailable:callback];
+    resolve([HKHealthStore isHealthDataAvailable]);
 }
 
 RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
